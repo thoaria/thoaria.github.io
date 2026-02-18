@@ -1,42 +1,450 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 10px;
+  background: linear-gradient(#fdebf4, #f8d7ea);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  overflow: hidden;
+}
+
+/* wrapper so tabs can sit outside the book */
+.logbook-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* book */
+.logbook {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  height: 95%;
+
+  /* background: #fff6fb; */
+  border-radius: 18px;
+  justify-content: center;
+  gap: 0px;
+
+  overflow: hidden;
+}
+
+.logbook-container {
+  display: flex;
+  width: 100%;
+  height: calc(550px - 40px);
+  align-items: start;
+  justify-content: center;
+  background-color: #f5e2ed;
+  flex-direction: row;
+}
+
+.logbook-background {
+  position: relative;
+  display: flex;
+  width: 900px;
+  height: 550px;
+  background-color: #f4b6d2;
+  border-radius: 18px;
+  border:#eaa4c8 3px solid;
+  align-items: center;
+  justify-content: center;
+}
+
+/* pages */
+.book-left,
+.book-right {
+  width: 95%;
+  height: 99%;
+  padding: 30px;
+  border-radius: 18px;
+}
+
+.book-left {
+  background: #ffe8f5;
+  box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.05);
+  margin-right: -20px;
+}
+
+.book-right {
+  background: #fff0f8;
+  box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.05);
+  overflow-y: hidden;
+  margin-left: -20px;
+}
+
+/* right-side tabs */
+
+.tabs {
+  position: absolute;
+  right: -8%;   /* pushes tabs outside book */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* bookmark-style buttons */
+.tab {
+  width: 110px;
+  height: 50px;
+  margin-left: 0px;
+
+  background: #ffc6e3;
+  /* border: 3px solid #d88bb3; */
+
+  border-radius: 0px 10px 10px 0px; /* rounded only on left side */
+
+  font-size: 9px;
+  line-height: 1.6;
+  cursor: pointer;
   text-align: center;
+
+  transition: all 0.15s ease;
+  position: relative;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* remove focus outline for tab buttons */
+.tab:focus {
+  outline: none;
+  box-shadow: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* hover */
+.tab:hover {
+  /* transform: translateX(-6px); */
+  border: 0px;
+  background: #ffb2da;
+}
+
+/* active tab */
+.tab.active {
+  background: #f79ac7;
+  transform: translateX(-8px);
+  /* box-shadow: -4px 4px 0px #eaa4c8, 0 4px 16px rgba(216, 139, 179, 0.25); */
+}
+
+/* typography */
+.book-title {
+  margin-top: 0;
+  font-size: 18px;
+  color: #8c4a6e;
+  border-bottom: 2px dotted #d88bb3;
+  padding-bottom: 8px;
+}
+
+h3 {
+  margin-top: 0;
+  color: #a05580;
+  font-size: 14px;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* Scrollbar */
+.book-right::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+.book-right::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.blurb-box {
+  background: #fff0f8;
+  border: 1.5px solid #eaa4c8;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: 8px;
+  color: #a05580;
+  box-shadow: 0 2px 8px rgba(216,139,179,0.07);
+}
+
+.popup-button {
+
+  button {
+    background: #fff0f8;
+    border: 2px solid #eaa4c8;
+    border-radius: 14px;
+    padding: 14px 24px;
+    font-weight: 700;
+    color: #a05580;
+    font-size: 10px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(216,139,179,0.07);
+    transition: box-shadow 0.2s, background 0.2s, border 0.2s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    line-height: 1.6;
   }
-  to {
-    transform: rotate(360deg);
+
+  button:hover {
+    background: #ffb2da;
+    border: 0px solid #d88bb3;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.pixel-corners, .popup-corners, .popup-corners--wrapper,
+.pixel-corners--wrapper {
+  clip-path: polygon(0px calc(100% - 20px),
+    4px calc(100% - 20px),
+    4px calc(100% - 12px),
+    8px calc(100% - 12px),
+    8px calc(100% - 8px),
+    12px calc(100% - 8px),
+    12px calc(100% - 4px),
+    20px calc(100% - 4px),
+    20px 100%,
+    calc(100% - 20px) 100%,
+    calc(100% - 20px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 20px),
+    100% calc(100% - 20px),
+    100% 20px,
+    calc(100% - 4px) 20px,
+    calc(100% - 4px) 12px,
+    calc(100% - 8px) 12px,
+    calc(100% - 8px) 8px,
+    calc(100% - 12px) 8px,
+    calc(100% - 12px) 4px,
+    calc(100% - 20px) 4px,
+    calc(100% - 20px) 0px,
+    20px 0px,
+    20px 4px,
+    12px 4px,
+    12px 8px,
+    8px 8px,
+    8px 12px,
+    4px 12px,
+    4px 20px,
+    0px 20px);
+  position: relative;
 }
 
-.card {
-  padding: 2em;
+.pixel-corners, .popup-corners {
+  border: 4px solid transparent;
 }
 
-.read-the-docs {
-  color: #888;
+.pixel-corners--wrapper, .popup-corners--wrapper {
+  width: fit-content;
+  height: fit-content;
 }
+.pixel-corners--wrapper .pixel-corners, .popup-corners--wrapper .popup-corners {
+  display: block;
+  clip-path: polygon(4px 20px,
+    8px 20px,
+    8px 12px,
+    12px 12px,
+    12px 8px,
+    20px 8px,
+    20px 4px,
+    calc(100% - 20px) 4px,
+    calc(100% - 20px) 8px,
+    calc(100% - 12px) 8px,
+    calc(100% - 12px) 12px,
+    calc(100% - 8px) 12px,
+    calc(100% - 8px) 20px,
+    calc(100% - 4px) 20px,
+    calc(100% - 4px) calc(100% - 20px),
+    calc(100% - 8px) calc(100% - 20px),
+    calc(100% - 8px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 8px),
+    calc(100% - 20px) calc(100% - 8px),
+    calc(100% - 20px) calc(100% - 4px),
+    20px calc(100% - 4px),
+    20px calc(100% - 8px),
+    12px calc(100% - 8px),
+    12px calc(100% - 12px),
+    8px calc(100% - 12px),
+    8px calc(100% - 20px),
+    4px calc(100% - 20px));
+}
+.pixel-corners::after,
+.popup-corners::after,
+.pixel-corners--wrapper::after,
+.popup-corners--wrapper::after {
+  content: "";
+  position: absolute;
+  clip-path: polygon(0px calc(100% - 20px),
+    4px calc(100% - 20px),
+    4px calc(100% - 12px),
+    8px calc(100% - 12px),
+    8px calc(100% - 8px),
+    12px calc(100% - 8px),
+    12px calc(100% - 4px),
+    20px calc(100% - 4px),
+    20px 100%,
+    calc(100% - 20px) 100%,
+    calc(100% - 20px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 20px),
+    100% calc(100% - 20px),
+    100% 20px,
+    calc(100% - 4px) 20px,
+    calc(100% - 4px) 12px,
+    calc(100% - 8px) 12px,
+    calc(100% - 8px) 8px,
+    calc(100% - 12px) 8px,
+    calc(100% - 12px) 4px,
+    calc(100% - 20px) 4px,
+    calc(100% - 20px) 0px,
+    20px 0px,
+    20px 4px,
+    12px 4px,
+    12px 8px,
+    8px 8px,
+    8px 12px,
+    4px 12px,
+    4px 20px,
+    0px 20px,
+    0px 50%,
+    4px 50%,
+    4px 20px,
+    8px 20px,
+    8px 12px,
+    12px 12px,
+    12px 8px,
+    20px 8px,
+    20px 4px,
+    calc(100% - 20px) 4px,
+    calc(100% - 20px) 8px,
+    calc(100% - 12px) 8px,
+    calc(100% - 12px) 12px,
+    calc(100% - 8px) 12px,
+    calc(100% - 8px) 20px,
+    calc(100% - 4px) 20px,
+    calc(100% - 4px) calc(100% - 20px),
+    calc(100% - 8px) calc(100% - 20px),
+    calc(100% - 8px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 8px),
+    calc(100% - 20px) calc(100% - 8px),
+    calc(100% - 20px) calc(100% - 4px),
+    20px calc(100% - 4px),
+    20px calc(100% - 8px),
+    12px calc(100% - 8px),
+    12px calc(100% - 12px),
+    8px calc(100% - 12px),
+    8px calc(100% - 20px),
+    4px calc(100% - 20px),
+    4px 50%,
+    0px 50%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #3b3b3b;
+  display: block;
+  pointer-events: none;
+}
+.popup-corners::after {
+  background: #eaa4c8;
+}
+
+.pixel-corners::after, .popup-corners::after {
+  margin: -4px;
+}
+
+/* skills grid */
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 15px;
+  padding: 10px;
+  padding-top: 0px;
+  overflow-y: hidden;
+}
+
+/* base badge style */
+.skill-badge {
+  padding: 10px 16px;
+  border-radius: 999px;
+
+  font-size: 6px;
+  font-weight: bold;
+
+  background: #ffe4f2;
+  border: 2px solid #d88bb3;
+
+  opacity: 0;
+  transform: scale(0.8) rotate(-2deg);
+
+  transition: all 0.3s ease;
+  cursor: default;
+
+  position: relative;
+}
+
+/* stamp pop-in animation */
+.skill-badge.show {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.skill-badge:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 6px 14px rgba(216, 139, 179, 0.35);
+}
+
+/* category coloring */
+
+.skill-badge.systems {
+  background: #ffd9ec;
+  border-color: #c26fa2;
+}
+
+.skill-badge.web {
+  background: #ffeaf6;
+  border-color: #e38bbd;
+}
+
+.skill-badge.database {
+  background: #ffe3f1;
+  border-color: #d88bb3;
+}
+
+.skill-badge.devops {
+  background: #fff0f8;
+  border-color: #c97bab;
+}
+
+.skill-badge.general {
+  background: #fce4f3;
+  border-color: #e5a3c6;
+}
+
