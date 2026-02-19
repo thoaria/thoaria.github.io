@@ -46,7 +46,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A desktop application that brings a virtual pet to your computer. Built with <span style={{ textDecoration: 'underline', color: '#a05580' }}>Tauri, React, Vite, and Rust</span>, this app will allow users to choose from a variety of pixel art pets that will roam around their desktop, interact with the user, and provide companionship throughout the day. The app will feature customizable pets, interactive animations, and a simple care system to keep your virtual friend happy and healthy. Productivity is tracked, granting the active pet "experience points" so it may "level up". <span style={{ textDecoration: 'underline', color: '#a05580' }}>This project is currently in development</span>, and I plan to release it as an open-source project on GitHub once it's ready. Stay tuned for updates!
           </span>
         ),
-        images: ['src/assets/project_images/pet_1.png', '../src/assets/project_images/pet_2.png', '../src/assets/project_images/pet_3.png']
+        images: ['src/assets/pet_1.png', 'src/assets/pet_2.png', 'src/assets/pet_3.png']
       },
       {
         title: (
@@ -59,7 +59,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A mobile app created for the Niagara Aerospace Museum to enhance visitor engagement. The app features a scavenger hunt that guides users through the museum's exhibits, providing educational content and interactive challenges through the use of <span style={{ textDecoration: 'underline', color: '#a05580' }}>near field communication (NFC)</span>. Built with <span style={{ textDecoration: 'underline', color: '#a05580' }}>React Native, Expo, and MySQL</span>, it offers a seamless experience on both iOS and Android devices. As this was my master's project, a full write-up can be found <a href="https://cse.buffalo.edu/tech-reports/2025-25.pdf" target="_blank" rel="noopener noreferrer">here</a>.
           </span>
         ),
-        images: ['src/assets/project_images/niam_1.png', 'src/assets/project_images/niam_2.png', 'src/assets/project_images/niam_3.png']
+        images: ['src/assets/niam_1.png', 'src/assets/niam_2.png', 'src/assets/niam_3.png']
       },
       {
         title: (
@@ -72,7 +72,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A tool for visualizing the structure of WebSocket frames. This was a teaching tool I built for CSE312 Web Applications. It uses <span style={{ textDecoration: 'underline', color: '#a05580' }}>React + TypeScript, Vite, & TailwindCSS</span>. It can be viewed <a href="https://websocket-visualizer.vercel.app" target="_blank" rel="noopener noreferrer">here</a>.
           </span>
         ),
-        images: ['src/assets/project_images/wsv_dark_1.png', 'src/assets/project_images/wsv_light_1.png', 'src/assets/project_images/wsv_dark_2.png']
+        images: ['src/assets/wsv_dark_1.png', 'src/assets/wsv_light_1.png', 'src/assets/wsv_dark_2.png']
       },
       {
         title: (
@@ -85,7 +85,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A Media Tracker App created for my senior capstone for undergrad. Built with <span style={{ textDecoration: 'underline', color: '#a05580' }}>React and Node.js</span>. Features include tracking movies, TV shows, books, and video games, with personalized recommendations and a social feed for sharing reviews and ratings.
           </span>
         ),
-        images: ['src/assets/project_images/chronline_homepage.png', 'src/assets/project_images/chronline_dashboard.png', 'src/assets/project_images/chronline_feed.png']
+        images: ['src/assets/chronline_homepage.png', 'src/assets/chronline_dashboard.png', 'src/assets/chronline_feed.png']
       }
     ];
 
