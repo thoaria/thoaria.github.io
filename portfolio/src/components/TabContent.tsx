@@ -2,6 +2,19 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import SkillsPage from "./SkillsPage.tsx";
 
+import pet1 from "../assets/pet_1.png";
+import pet2 from "../assets/pet_2.png";
+import pet3 from "../assets/pet_3.png";
+import niam1 from "../assets/niam_1.png";
+import niam2 from "../assets/niam_2.png";
+import niam3 from "../assets/niam_3.png";
+import wsvDark1 from "../assets/wsv_dark_1.png";
+import wsvLight1 from "../assets/wsv_light_1.png";
+import wsvDark2 from "../assets/wsv_dark_2.png";
+import chronlineHomepage from "../assets/chronline_homepage.png";
+import chronlineDashboard from "../assets/chronline_dashboard.png";
+import chronlineFeed from "../assets/chronline_feed.png";
+
 export default function TabContent({ activeTab }: { activeTab: string }) {
   const [displayTab, setDisplayTab] = useState(activeTab);
   const [fade, setFade] = useState(true);
@@ -46,7 +59,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A desktop application that brings a virtual pet to your computer. Built with <span style={{ textDecoration: 'underline', color: '#a05580' }}>Tauri, React, Vite, and Rust</span>, this app will allow users to choose from a variety of pixel art pets that will roam around their desktop, interact with the user, and provide companionship throughout the day. The app will feature customizable pets, interactive animations, and a simple care system to keep your virtual friend happy and healthy. Productivity is tracked, granting the active pet "experience points" so it may "level up". <span style={{ textDecoration: 'underline', color: '#a05580' }}>This project is currently in development</span>, and I plan to release it as an open-source project on GitHub once it's ready. Stay tuned for updates!
           </span>
         ),
-        images: ['src/assets/pet_1.png', 'src/assets/pet_2.png', 'src/assets/pet_3.png']
+        images: [pet1, pet2, pet3]
       },
       {
         title: (
@@ -59,7 +72,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A mobile app created for the Niagara Aerospace Museum to enhance visitor engagement. The app features a scavenger hunt that guides users through the museum's exhibits, providing educational content and interactive challenges through the use of <span style={{ textDecoration: 'underline', color: '#a05580' }}>near field communication (NFC)</span>. Built with <span style={{ textDecoration: 'underline', color: '#a05580' }}>React Native, Expo, and MySQL</span>, it offers a seamless experience on both iOS and Android devices. As this was my master's project, a full write-up can be found <a href="https://cse.buffalo.edu/tech-reports/2025-25.pdf" target="_blank" rel="noopener noreferrer">here</a>.
           </span>
         ),
-        images: ['src/assets/niam_1.png', 'src/assets/niam_2.png', 'src/assets/niam_3.png']
+        images: [niam1, niam2, niam3]
       },
       {
         title: (
@@ -72,7 +85,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A tool for visualizing the structure of WebSocket frames. This was a teaching tool I built for CSE312 Web Applications. It uses <span style={{ textDecoration: 'underline', color: '#a05580' }}>React + TypeScript, Vite, & TailwindCSS</span>. It can be viewed <a href="https://websocket-visualizer.vercel.app" target="_blank" rel="noopener noreferrer">here</a>.
           </span>
         ),
-        images: ['src/assets/wsv_dark_1.png', 'src/assets/wsv_light_1.png', 'src/assets/wsv_dark_2.png']
+        images: [wsvDark1, wsvLight1, wsvDark2]
       },
       {
         title: (
@@ -85,7 +98,7 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
             A Media Tracker App created for my senior capstone for undergrad. Built with <span style={{ textDecoration: 'underline', color: '#a05580' }}>React and Node.js</span>. Features include tracking movies, TV shows, books, and video games, with personalized recommendations and a social feed for sharing reviews and ratings.
           </span>
         ),
-        images: ['src/assets/chronline_homepage.png', 'src/assets/chronline_dashboard.png', 'src/assets/chronline_feed.png']
+        images: [chronlineHomepage, chronlineDashboard, chronlineFeed]
       }
     ];
 
