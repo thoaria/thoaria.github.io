@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import TooltipTemplate from "./TooltipTemplate.tsx";
 import SkillsPage from "./SkillsPage.tsx";
 
 import pet1 from "../assets/pet_1.png";
@@ -15,9 +16,103 @@ import chronlineHomepage from "../assets/chronline_homepage.png";
 import chronlineDashboard from "../assets/chronline_dashboard.png";
 import chronlineFeed from "../assets/chronline_feed.png";
 
+import linkedin from "../assets/linkedin.png";
+import github from "../assets/github.png";
+import resume from "../assets/resume.pdf";
+import open from "../assets/open-in-new.png";
+import messsage from "../assets/message.png";
+
 export default function TabContent({ activeTab }: { activeTab: string }) {
+    // Guest book form state
+    const [guestName, setGuestName] = useState("");
+    const [guestEmail, setGuestEmail] = useState("");
+    const [guestDay, setGuestDay] = useState("");
+    const [guestReason, setGuestReason] = useState("");
+    const [guestAbout, setGuestAbout] = useState("");
+
+    // Google Form details
+    const googleFormAction = "https://docs.google.com/forms/d/e/1FAIpQLSc26csiTanr12pLSHBWW2QeMltpNPiJFN3gOjvbYpVuvBwLeA/formResponse";
+    const entryName = "entry.2072685040";
+    const entryEmail = "entry.729664409";
+    const entryDay = "entry.1658929030";
+    const entryReason = "entry.947642351";
+    const entryAbout = "entry.1048560163";
+
+    function handleGuestBookSubmit(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      // Build form data
+      const formData = new FormData();
+      formData.append(entryName, guestName);
+      formData.append(entryEmail, guestEmail);
+      formData.append(entryDay, guestDay);
+      formData.append(entryReason, guestReason);
+      formData.append(entryAbout, guestAbout);
+      // Submit to Google Form in a new tab
+      const params = new URLSearchParams();
+      params.append(entryName, guestName);
+      params.append(entryEmail, guestEmail);
+      params.append(entryDay, guestDay);
+      params.append(entryReason, guestReason);
+      params.append(entryAbout, guestAbout);
+      window.open(`${googleFormAction}?${params.toString()}`, "_blank");
+      // Clear fields
+      setGuestName("");
+      setGuestEmail("");
+      setGuestDay("");
+      setGuestReason("");
+      setGuestAbout("");
+    }
   const [displayTab, setDisplayTab] = useState(activeTab);
   const [fade, setFade] = useState(true);
+  const email = "augustinacostanza@gmail.com";
+
+  const education = [
+    // {
+    //   title: 'BS Computer Science & Engineering',
+    //   organization: 'University at Buffalo – SUNY',
+    //   date: 'May 2024',
+    //   description: 'GPA: 3.6/4.0',
+    //   tag: 'Undergraduate'
+    // },
+    {
+      title: 'MS Computer Science & Engineering',
+      organization: 'University at Buffalo – SUNY',
+      date: 'Feb 2026',
+      description: 'GPA: 3.3/4.0',
+      tag: 'Graduate'
+    }
+  ];
+
+  const experience = [
+    {
+      title: 'ACCESS MMS Team Intern',
+      organization: 'University at Buffalo Center for Computational Research',
+      date: 'May 2023-Aug 2023',
+      description: 'Converted ETL V1 ingestors in PHP to JSON files utilizing PostgreSQL. Added files to a pipeline file and ran it to verify correctness.',
+      tag: 'Internship, Research'
+    },
+    {
+      title: 'Frontend Development Team Intern',
+      organization: 'Newsday',
+      date: 'Jun 2024-Aug 2024, Jun 2025-Aug 2025',
+      description: 'Designed Figma prototypes of pages for development. Worked on assigned tickets for frontend modifications.',
+      tag: 'Internship, Frontend'
+    },
+    {
+      title: 'Project Manager',
+      organization: 'CSE404/442, University at Buffalo',
+      date: '2024',
+      description: 'Managed teams of students for software engineering projects. Responsible for project planning, task delegation, and ensuring timely completion of milestones.',
+      tag: 'Leadership, Management'
+    },
+    {
+      title: 'Teaching Assistant, CSE312 Web Applications',
+      organization: 'University at Buffalo',
+      date: '2023–2026',
+      description: 'Assisted in teaching web application development, grading assignments, and providing support to students.',
+      tag: 'Teaching, Full Stack'
+    }
+  ];
 
   useEffect(() => {
     setFade(false);
@@ -106,141 +201,37 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
     return (
       <div
         className={`page-content ${fade ? "fade-in" : "fade-out"}`}
-        style={{
-          height: '100%',
-          overflowY: 'auto',
-          fontSize: 8.5,
-          lineHeight: 1.6,
-          boxSizing: 'border-box',
-          paddingBottom: 50,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 12,
-          alignItems: 'center',
-          justifyContent: 'start',
-        }}
       >
 
         {displayTab === "projects" && (
-          <div>
-            <h3>Projects</h3>
+          <div className="projects-section">
+            <h3 style={{ textAlign: 'center' }}>Projects</h3>
             {projectData.map((proj, idx) => (
-              <div
-                key={idx}
-                style={{
-                  marginBottom: 18,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  width: '100%',
-                }}
-              >
+              <div key={idx} className="project-list-item">
                 <div className="popup-button">
-                    <button
-                    onClick={() => setOpenProjectIdx(idx)}
-                    >
+                  <button onClick={() => setOpenProjectIdx(idx)}>
                     <span style={{ flex: 1 }}>{proj.title}</span>
-                    <span
-                        style={{
-                        fontSize: 16,
-                        marginLeft: 10,
-                        color: '#d88bb3',
-                        userSelect: 'none',
-                        }}
-                    >
-                    </span>
-                    </button>
+                    <span className="project-list-icon"></span>
+                  </button>
                 </div>
               </div>
             ))}
 
             {/* popup modal rendered in portal to avoid clipping */}
             {openProjectIdx !== null && typeof window !== 'undefined' && createPortal(
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100vw',
-                  height: '100vh',
-                  background: 'rgba(248, 215, 234, 0.85)',
-                  zIndex: 1000,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'background 0.2s',
-                }}
-                onClick={() => setOpenProjectIdx(null)}
-              >
-                <div
-                  style={{
-                    background: '#fff0f8',
-                    border: '2.5px solid #eaa4c8',
-                    borderRadius: 18,
-                    boxShadow: '0 8px 32px rgba(216,139,179,0.18), 0 2px 8px rgba(216,139,179,0.07)',
-                    padding: '32px 32px 24px 32px',
-                    minWidth: 320,
-                    maxWidth: 540,
-                    width: '90vw',
-                    maxHeight: '80vh',
-                    overflowY: 'auto',
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
-                  onClick={e => e.stopPropagation()}
-                >
-                  <button
-                    onClick={() => setOpenProjectIdx(null)}
-                    style={{
-                      position: 'absolute',
-                      top: 12,
-                      right: 0,
-                      background: 'none',
-                      border: 'none',
-                      color: '#d88bb3',
-                      fontSize: 22,
-                      cursor: 'pointer',
-                      fontWeight: 700,
-                      zIndex: 2,
-                    }}
-                    aria-label="Close"
-                  >
-                    ×
-                  </button>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#a05580', marginBottom: 12, textAlign: 'center' }}>
-                    {projectData[openProjectIdx].title}
-                  </div>
-                  <div style={{ marginBottom: 18, color: 'black', fontSize: 10.5, textAlign: 'left', width: '100%' }}>
-                    {projectData[openProjectIdx].description}
-                  </div>
+              <div className="project-popup-modal" onClick={() => setOpenProjectIdx(null)}>
+                <div className="project-popup-content" onClick={e => e.stopPropagation()}>
+                  <button className="project-popup-close" onClick={() => setOpenProjectIdx(null)} aria-label="Close">×</button>
+                  <div className="project-popup-title">{projectData[openProjectIdx].title}</div>
+                  <div className="project-popup-description">{projectData[openProjectIdx].description}</div>
                   {projectData[openProjectIdx].images && projectData[openProjectIdx].images.length > 0 && (
-                    <div
-                      style={{
-                        width: '100%',
-                        display: 'flex',
-                        gap: 12,
-                        marginBottom: 6,
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                      }}
-                    >
+                    <div className="project-popup-images">
                       {projectData[openProjectIdx].images.slice(0, 3).map((img, i) => (
                         <img
                           key={i}
                           src={img}
                           alt={`Project example ${i + 1}`}
-                          style={{
-                            maxWidth: 140,
-                            maxHeight: 120,
-                            borderRadius: 10,
-                            border: '1.5px solid #eaa4c8',
-                            objectFit: 'cover',
-                            background: '#fff',
-                            cursor: 'pointer',
-                            transition: 'box-shadow 0.2s',
-                          }}
+                          className="project-popup-image"
                           onClick={() => setOpenImage(img)}
                         />
                       ))}
@@ -248,47 +239,12 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
                   )}
                         {/* Image popup modal */}
                         {openImage && typeof window !== 'undefined' && createPortal(
-                          <div
-                            style={{
-                              position: 'fixed',
-                              top: 0,
-                              left: 0,
-                              width: '100vw',
-                              height: '100vh',
-                              background: 'rgba(40, 0, 40, 0.65)',
-                              zIndex: 2000,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              transition: 'background 0.2s',
-                            }}
-                            onClick={() => setOpenImage(null)}
-                          >
-                            <div
-                              style={{
-                                position: 'relative',
-                                background: 'none',
-                                border: 'none',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                maxWidth: '90vw',
-                                maxHeight: '90vh',
-                              }}
-                              onClick={e => e.stopPropagation()}
-                            >
+                          <div className="image-popup-modal" onClick={() => setOpenImage(null)}>
+                            <div className="image-popup-content" onClick={e => e.stopPropagation()}>
                               <img
                                 src={openImage}
                                 alt="Project large preview"
-                                style={{
-                                  maxWidth: '80vw',
-                                  maxHeight: '80vh',
-                                  borderRadius: 16,
-                                  border: '2.5px solid #eaa4c8',
-                                  background: '#fff',
-                                  boxShadow: '0 8px 32px rgba(216,139,179,0.18)',
-                                  objectFit: 'contain',
-                                }}
+                                className="image-popup-img"
                               />
                             </div>
                           </div>,
@@ -302,43 +258,199 @@ export default function TabContent({ activeTab }: { activeTab: string }) {
         )}
 
         {displayTab === "skills" && (
-            <>
-                <h3>Skills</h3>
-                <SkillsPage />
-            </>
+          <>
+            <h3 className="skills-section-title">Skills</h3>
+            <SkillsPage />
+          </>
+        )}
+
+        {displayTab === "education" && (
+          <>
+            <h3 style={{ textAlign: 'center' }}>Education</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 18, alignItems: 'center', width: '100%' }}>
+              {education.map((edu, idx) => (
+                <div key={idx} className="experience-entry">
+                  <div className="experience-title">{edu.title}</div>
+                  <div className="experience-organization">
+                    {edu.organization} &mdash; <span className="experience-date">{edu.date}</span>
+                  </div>
+                  <hr className="experience-divider" />
+                  <div className="experience-description">{edu.description}</div>
+                  <div style={{ bottom: 6, right: 10, display: 'flex', gap: 6 }}>
+                    {edu.tag.split(',').map((t, i) => (
+                      <span key={i} className="experience-tag">{t.trim()}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         {displayTab === "experience" && (
-            <>
-            <h3>Experience</h3>
-            <p>Internships and research.</p>
-            </>
+          <>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px' }}>
+            <div style={{ textAlign: 'center', verticalAlign: 'middle', color: '#a05580', fontSize: '14px' }}>Experience</div>
+            <TooltipTemplate content="Click to view resume">
+                <img src={open} alt="Open in new" style={{ width: '30px', height: 'auto', cursor: 'pointer' }} onClick={() => window.open(resume, '_blank', 'noopener,noreferrer')} />
+            </TooltipTemplate>
+          </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 18, alignItems: 'center', width: '100%' }}>
+              {experience.map((exp, idx) => (
+                <div key={idx} className="experience-entry">
+                  <div className="experience-title">{exp.title}</div>
+                  <div className="experience-organization">
+                    {exp.organization} &mdash; <span className="experience-date">{exp.date}</span>
+                  </div>
+                  <hr className="experience-divider" />
+                  <div className="experience-description">{exp.description}</div>
+                  <div style={{ bottom: 6, right: 10, display: 'flex', gap: 6 }}>
+                    {exp.tag.split(',').map((t, i) => (
+                      <span key={i} className="experience-tag">{t.trim()}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         {displayTab === "contact" && (
-            <>
+          <>
             <h3>Contact</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <p>Email: augustinacostanza@gmail.com</p>
-                <div>
-                <a href="https://www.linkedin.com/in/augustina-costanza-6004a5260/" target="_blank" rel="noopener noreferrer">
-                    LinkedIn
+            <div className="contact-section">
+              <div className="contact-links">
+                <a
+                  href="https://github.com/thoaria"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <TooltipTemplate content="GitHub">
+                    <img src={github} alt="GitHub" className="contact-icon" />
+                  </TooltipTemplate>
                 </a>
-                <span style={{ margin: '0 8px' }}>|</span>
-                <a href="https://github.com/thoaria" target="_blank" rel="noopener noreferrer">
-                    GitHub
+                <span className="contact-link-separator">|</span>
+                <a
+                  href="https://www.linkedin.com/in/augustina-costanza-6004a5260/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <TooltipTemplate content="LinkedIn">
+                    <img src={linkedin} alt="LinkedIn" className="contact-icon" />
+                  </TooltipTemplate>
                 </a>
+                <span className="contact-link-separator">|</span>
+                <span
+                  style={{ position: 'relative', display: 'inline-block' }}
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(email);
+                    const notif = document.createElement('div');
+                    notif.textContent = 'Email copied!';
+                    notif.style.position = 'fixed';
+                    notif.style.bottom = '32px';
+                    notif.style.left = '50%';
+                    notif.style.transform = 'translateX(-50%)';
+                    notif.style.background = '#fff0f8';
+                    notif.style.color = '#a05580';
+                    notif.style.border = '2px solid #eaa4c8';
+                    notif.style.borderRadius = '12px';
+                    notif.style.padding = '10px 24px';
+                    notif.style.fontSize = '12px';
+                    notif.style.fontWeight = '700';
+                    notif.style.boxShadow = '0 2px 8px rgba(216,139,179,0.07)';
+                    notif.style.zIndex = '9999';
+                    document.body.appendChild(notif);
+                    setTimeout(() => {
+                      notif.remove();
+                    }, 1600);
+                  }}
+                >
+                  <TooltipTemplate content={email}>
+                    <img src={messsage} alt="Email" className="contact-icon" />
+                  </TooltipTemplate>
+                </span>
+                <span className="contact-link-separator">|</span>
+                <TooltipTemplate content="Resume">
+                  <img
+                    src={open}
+                    alt="Resume"
+                    className="contact-icon"
+                    onClick={() => window.open(resume, '_blank', 'noopener,noreferrer')}
+                  />
+                </TooltipTemplate>
+              </div>
+              <hr className="experience-divider" style={{ margin: '32px auto', width: '320px' }} />
+              <div className="guest-book-section" style={{ textAlign: 'center', width: '300px' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                    <div style={{ textAlign: 'center', verticalAlign: 'middle', color: '#a05580', fontSize: '14px' }}>Guest Book</div>
+                    <a
+                        href="https://docs.google.com/spreadsheets/d/1wbyxLfTH6fNdQjtg0RTbSxGBTpuPW4z14mwndoCfymo/edit?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <TooltipTemplate content="Click to view guest book entries">
+                            <img src={open} alt="Open in new" style={{ width: '30px', height: 'auto', cursor: 'pointer' }} />
+                        </TooltipTemplate>
+                    </a>
                 </div>
+                <p>Leave a message!</p>
+                <form
+                  onSubmit={handleGuestBookSubmit}
+                  style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '400px' }}
+                >
+                  <input
+                    name={entryName}
+                    type="text"
+                    placeholder="Name"
+                    required
+                    value={guestName}
+                    onChange={e => setGuestName(e.target.value)}
+                    className="guestbook-input"
+                  />
+                  <input
+                    name={entryEmail}
+                    type="email"
+                    placeholder="Email (optional)"
+                    value={guestEmail}
+                    onChange={e => setGuestEmail(e.target.value)}
+                    className="guestbook-input"
+                  />
+                  <textarea
+                    name={entryDay}
+                    placeholder="Tell me about your day."
+                    required
+                    rows={4}
+                    value={guestDay}
+                    onChange={e => setGuestDay(e.target.value)}
+                    className="guestbook-input"
+                  />
+                  <textarea
+                    name={entryReason}
+                    placeholder="What brings you here?"
+                    required
+                    rows={4}
+                    value={guestReason}
+                    onChange={e => setGuestReason(e.target.value)}
+                    className="guestbook-input"
+                  />
+                  <textarea
+                    name={entryAbout}
+                    placeholder="Tell me something about yourself."
+                    rows={4}
+                    value={guestAbout}
+                    onChange={e => setGuestAbout(e.target.value)}
+                    className="guestbook-input"
+                  />
+                  <button
+                    type="submit"
+                    style={{ background: '#f79ac7', color: '#fff', border: 'none', borderRadius: '8px', padding: '10px 24px', fontWeight: '700', cursor: 'pointer' }}
+                  >
+                    Submit
+                  </button>
+                </form>
+              </div>
             </div>
-            </>
-        )}
-
-        {displayTab === "guest book" && (
-            <>
-            <h3>Guest Book</h3>
-            <p>Leave a message!</p>
-            </>
-            // use notion api to store guest book entries, or maybe just a google form for simplicity
+          </>
         )}
     </div>
   );

@@ -2,13 +2,14 @@ import { useState, useEffect, useRef, type SetStateAction } from "react";
 import clickSoundSrc from "../assets/ff7_cursor.mp3";
 import Tabs from "./Tabs";
 import TabContent from "./TabContent";
+// import profile from "../assets/IMG_5520.PNG";
 
 const tabList = [
   { id: "projects", icon: "projects" },
   { id: "skills", icon: "skills" },
+  { id: "education", icon: "education" },
   { id: "experience", icon: "experience" },
   { id: "contact", icon: "contact" },
-  { id: "guest book", icon: "guest book" },
 ];
 
 export default function Logbook() {
@@ -57,7 +58,7 @@ export default function Logbook() {
                     <div className="bio-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: '18px', margin: '18px 0' }}>
                       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px' }}>
                         <img
-                        src="https://i.imgur.com/1nXo9sP.jpg"
+                        src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
                         alt="Profile"
                         className="profile-photo"
                         style={{
